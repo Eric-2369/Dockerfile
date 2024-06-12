@@ -1,24 +1,25 @@
-FROM debian:bookworm-slim
+FROM debian:bookworm-20240513-slim
 LABEL authors="eric2369"
 
 ENV TZ="Asia/Shanghai"
-
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 RUN apt-get update \
-    && apt-get install -y curl git xz-utils ffmpeg \
+    && apt-get install -y --no-install-recommends curl ca-certificates git openssh-client xz-utils cowsay \
     && rm -rf /var/lib/apt/lists/*
 
-RUN curl https://nodejs.org/dist/v20.13.1/node-v20.13.1-linux-x64.tar.xz | tar -xJC /usr/local --strip-components=1
+RUN curl https://nodejs.org/dist/v20.14.0/node-v20.14.0-linux-x64.tar.xz | tar -xJC /usr/local --strip-components=1
 
-RUN npm install typescript tsx @salesforce/cli -g
+RUN npm install typescript tsx @salesforce/cli -g \
+    && npm cache clean --force
 
-RUN echo y | sf plugins install sfdx-git-delta
+RUN echo y | sf plugins install sfdx-git-delta \
+    && npm cache clean --force
 
 RUN curl https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -o /tmp/google-chrome-stable_current_amd64.deb \
     && apt-get update \
     && apt-get install -y /tmp/google-chrome-stable_current_amd64.deb \
-    && rm -rf /var/lib/apt/lists/* /var/cache/apt/* \
+    && rm -rf /var/lib/apt/lists/* \
     && rm -rf /tmp/google-chrome-stable_current_amd64.deb
 
 CMD ["/bin/bash"]
