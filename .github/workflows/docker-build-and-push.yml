@@ -31,7 +31,7 @@ jobs:
           file: ./debian12-nodejs-typescript-salesforcecli/Dockerfile
           push: true
           tags: eric2369/debian12-nodejs-typescript-salesforcecli:${{ steps.date.outputs.date }}
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/amd64
 
       - name: Build and push Docker image for debian12-nodejs-typescript-salesforcecli-chrome
         uses: docker/build-push-action@v6
@@ -40,4 +40,4 @@ jobs:
           file: ./debian12-nodejs-typescript-salesforcecli-chrome/Dockerfile
           push: true
           tags: eric2369/debian12-nodejs-typescript-salesforcecli-chrome:${{ steps.date.outputs.date }}
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/amd64
