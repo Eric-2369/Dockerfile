@@ -21,8 +21,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Get current date
-        id: date
-        run: echo "::set-output name=date::$(date +'%Y%m%d')"
+        run: echo "DATE=$(date +'%Y%m%d')" >> $GITHUB_ENV
 
       - name: Build and push Docker image for debian12-nodejs-typescript-salesforcecli
         uses: docker/build-push-action@v6
@@ -30,7 +29,7 @@ jobs:
           context: ./debian12-nodejs-typescript-salesforcecli
           file: ./debian12-nodejs-typescript-salesforcecli/Dockerfile
           push: true
-          tags: eric2369/debian12-nodejs-typescript-salesforcecli:${{ steps.date.outputs.date }}
+          tags: eric2369/debian12-nodejs-typescript-salesforcecli:${{ env.DATE }}
           platforms: linux/amd64
 
       - name: Build and push Docker image for debian12-nodejs-typescript-salesforcecli-chrome
@@ -39,5 +38,5 @@ jobs:
           context: ./debian12-nodejs-typescript-salesforcecli-chrome
           file: ./debian12-nodejs-typescript-salesforcecli-chrome/Dockerfile
           push: true
-          tags: eric2369/debian12-nodejs-typescript-salesforcecli-chrome:${{ steps.date.outputs.date }}
+          tags: eric2369/debian12-nodejs-typescript-salesforcecli-chrome:${{ env.DATE }}
           platforms: linux/amd64
