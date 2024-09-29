@@ -35,13 +35,13 @@ RUN echo '#!/bin/bash' > /home/shadowsocksr/shadowsocksr/shadowsocks/start.sh \
     && echo 'python3 /home/shadowsocksr/shadowsocksr/shadowsocks/server.py -c /home/shadowsocksr/shadowsocksr/shadowsocks/config.json' >> /home/shadowsocksr/shadowsocksr/shadowsocks/start.sh \
     && chmod +x /home/shadowsocksr/shadowsocksr/shadowsocks/start.sh
 
-ENV SERVER_PORT="8388" \
-    PASSWORD="m" \
-    METHOD="aes-128-ctr" \
-    PROTOCOL="auth_aes128_md5" \
-    PROTOCOL_PARAM="" \
-    OBFS="tls1.2_ticket_auth_compatible" \
-    OBFS_PARAM="" \
-    DNS_IPV6="false"
+ENV SERVER_PORT="8388"
+ENV PASSWORD="m"
+ENV METHOD="aes-128-ctr"
+ENV PROTOCOL="auth_aes128_md5"
+ENV PROTOCOL_PARAM=""
+ENV OBFS="tls1.2_ticket_auth_compatible"
+ENV OBFS_PARAM=""
+ENV DNS_IPV6="false"
 
 CMD ["/home/shadowsocksr/shadowsocksr/shadowsocks/start.sh"]
