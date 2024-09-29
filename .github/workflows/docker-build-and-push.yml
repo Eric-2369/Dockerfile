@@ -63,7 +63,7 @@ jobs:
           file: ./debian12-nodejs-typescript-salesforcecli-chrome/Dockerfile
           push: ${{ fromJSON(github.event.inputs.push_images) }}
           tags: eric2369/debian12-nodejs-typescript-salesforcecli-chrome:${{ env.DATE }},eric2369/debian12-nodejs-typescript-salesforcecli-chrome:latest
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/amd64
 
       - name: Build and push Docker image for debian12-python-shadowsocksr
         if: ${{ fromJSON(github.event.inputs.debian12_python_shadowsocksr) }}
