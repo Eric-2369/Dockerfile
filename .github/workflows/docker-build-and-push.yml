@@ -40,7 +40,7 @@ jobs:
         run: echo "DATE=$(date +'%Y%m%d')" >> $GITHUB_ENV
 
       - name: Build and push Docker image for debian12-nodejs-typescript-salesforcecli
-        if: ${{ github.event.inputs.debian12_nodejs_typescript_salesforcecli }}
+        if: ${{ fromJSON(github.event.inputs.debian12_nodejs_typescript_salesforcecli) }}
         uses: docker/build-push-action@v6
         with:
           context: ./debian12-nodejs-typescript-salesforcecli
@@ -50,7 +50,7 @@ jobs:
           platforms: linux/amd64
 
       - name: Build and push Docker image for debian12-nodejs-typescript-salesforcecli-chrome
-        if: ${{ github.event.inputs.debian12_nodejs_typescript_salesforcecli_chrome }}
+        if: ${{ fromJSON(github.event.inputs.debian12_nodejs_typescript_salesforcecli_chrome) }}
         uses: docker/build-push-action@v6
         with:
           context: ./debian12-nodejs-typescript-salesforcecli-chrome
@@ -60,7 +60,7 @@ jobs:
           platforms: linux/amd64
 
       - name: Build and push Docker image for debian12-python-shadowsocksr
-        if: ${{ github.event.inputs.debian12_python_shadowsocksr }}
+        if: ${{ fromJSON(github.event.inputs.debian12_python_shadowsocksr) }}
         uses: docker/build-push-action@v6
         with:
           context: ./debian12-python-shadowsocksr
