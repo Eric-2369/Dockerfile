@@ -2,6 +2,17 @@ name: Build and Push Docker Images
 
 on:
   workflow_dispatch:
+    inputs:
+      debian12_nodejs_typescript_salesforcecli:
+        description: 'Build debian12-nodejs-typescript-salesforcecli'
+        required: false
+        default: false
+        type: boolean
+      debian12_nodejs_typescript_salesforcecli_chrome:
+        description: 'Build debian12-nodejs-typescript-salesforcecli-chrome'
+        required: false
+        default: false
+        type: boolean
 
 jobs:
   build-and-push:
@@ -24,6 +35,7 @@ jobs:
         run: echo "DATE=$(date +'%Y%m%d')" >> $GITHUB_ENV
 
       - name: Build and push Docker image for debian12-nodejs-typescript-salesforcecli
+        if: ${{ github.event.inputs.debian12_nodejs_typescript_salesforcecli }}
         uses: docker/build-push-action@v6
         with:
           context: ./debian12-nodejs-typescript-salesforcecli
@@ -33,6 +45,7 @@ jobs:
           platforms: linux/amd64
 
       - name: Build and push Docker image for debian12-nodejs-typescript-salesforcecli-chrome
+        if: ${{ github.event.inputs.debian12_nodejs_typescript_salesforcecli_chrome }}
         uses: docker/build-push-action@v6
         with:
           context: ./debian12-nodejs-typescript-salesforcecli-chrome
