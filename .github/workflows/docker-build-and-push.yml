@@ -13,10 +13,15 @@ on:
         required: false
         default: false
         type: boolean
+      debian12_python_shadowsocksr:
+        description: 'Build debian12-python-shadowsocksr'
+        required: false
+        default: false
+        type: boolean
 
 jobs:
   build-and-push:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
 
     steps:
       - name: Checkout repository
@@ -52,4 +57,14 @@ jobs:
           file: ./debian12-nodejs-typescript-salesforcecli-chrome/Dockerfile
           push: true
           tags: eric2369/debian12-nodejs-typescript-salesforcecli-chrome:${{ env.DATE }},eric2369/debian12-nodejs-typescript-salesforcecli-chrome:latest
+          platforms: linux/amd64
+
+      - name: Build and push Docker image for debian12-python-shadowsocksr
+        if: ${{ github.event.inputs.debian12_python_shadowsocksr }}
+        uses: docker/build-push-action@v6
+        with:
+          context: ./debian12-python-shadowsocksr
+          file: ./debian12-python-shadowsocksr/Dockerfile
+          push: true
+          tags: eric2369/debian12-python-shadowsocksr:${{ env.DATE }},eric2369/debian12-python-shadowsocksr:latest
           platforms: linux/amd64
