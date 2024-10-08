@@ -1,4 +1,4 @@
-FROM debian:bookworm-20240812-slim
+FROM debian:bookworm-20240926-slim
 LABEL authors="eric2369"
 
 RUN apt-get update \
@@ -19,7 +19,7 @@ RUN set -eux; \
             exit 1; \
             ;; \
     esac; \
-    curl https://nodejs.org/dist/v20.17.0/node-v20.17.0-linux-${ARCH}.tar.xz | tar -xJC /usr/local --strip-components=1
+    curl https://nodejs.org/dist/v20.18.0/node-v20.18.0-linux-${ARCH}.tar.xz | tar -xJC /usr/local --strip-components=1
 
 RUN npm install typescript tsx @salesforce/cli -g \
     && npm cache clean --force
@@ -27,10 +27,8 @@ RUN npm install typescript tsx @salesforce/cli -g \
 RUN echo y | sf plugins install sfdx-git-delta \
     && npm cache clean --force
 
-RUN curl https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -o /tmp/google-chrome-stable_current_amd64.deb \
-    && apt-get update \
-    && apt-get install -y --no-install-recommends /tmp/google-chrome-stable_current_amd64.deb \
-    && rm -rf /var/lib/apt/lists/* \
-    && rm -rf /tmp/google-chrome-stable_current_amd64.deb
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends chromium \
+    && rm -rf /var/lib/apt/lists/*
 
 CMD ["/bin/bash"]

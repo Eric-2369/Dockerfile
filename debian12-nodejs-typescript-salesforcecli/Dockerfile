@@ -1,4 +1,4 @@
-FROM debian:bookworm-20240812-slim
+FROM debian:bookworm-20240926-slim
 LABEL authors="eric2369"
 
 RUN apt-get update \
@@ -19,7 +19,7 @@ RUN set -eux; \
             exit 1; \
             ;; \
     esac; \
-    curl https://nodejs.org/dist/v20.17.0/node-v20.17.0-linux-${ARCH}.tar.xz | tar -xJC /usr/local --strip-components=1
+    curl https://nodejs.org/dist/v20.18.0/node-v20.18.0-linux-${ARCH}.tar.xz | tar -xJC /usr/local --strip-components=1
 
 RUN npm install typescript tsx @salesforce/cli -g \
     && npm cache clean --force
