@@ -1,8 +1,8 @@
-FROM python:3.9.20-slim-bookworm
+FROM debian:bullseye-20240926-slim
 LABEL authors="eric2369"
 
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends git openssh-client libsodium-dev \
+    && apt-get install -y --no-install-recommends curl ca-certificates git openssh-client python3 \
     && rm -rf /var/lib/apt/lists/*
 
 RUN useradd -m -s /bin/bash shadowsocksr

@@ -8,18 +8,18 @@ on:
         required: false
         default: false
         type: boolean
-      debian12_nodejs_typescript_salesforcecli:
+      build_debian11_python_shadowsocksr:
+        description: 'Build debian11-python-shadowsocksr'
+        required: false
+        default: false
+        type: boolean
+      build_debian12_nodejs_typescript_salesforcecli:
         description: 'Build debian12-nodejs-typescript-salesforcecli'
         required: false
         default: false
         type: boolean
-      debian12_nodejs_typescript_salesforcecli_chromium:
+      build_debian12_nodejs_typescript_salesforcecli_chromium:
         description: 'Build debian12-nodejs-typescript-salesforcecli-chromium'
-        required: false
-        default: false
-        type: boolean
-      debian12_python_shadowsocksr:
-        description: 'Build debian12-python-shadowsocksr'
         required: false
         default: false
         type: boolean
@@ -45,8 +45,18 @@ jobs:
       - name: Get current date
         run: echo "DATE=$(date +'%Y%m%d')" >> $GITHUB_ENV
 
+      - name: Build and push Docker image for debian11-python-shadowsocksr
+        if: ${{ fromJSON(github.event.inputs.build_debian11_python_shadowsocksr) }}
+        uses: docker/build-push-action@v6
+        with:
+          context: ./debian11-python-shadowsocksr
+          file: ./debian11-python-shadowsocksr/Dockerfile
+          push: ${{ fromJSON(github.event.inputs.push_images) }}
+          tags: eric2369/debian11-python-shadowsocksr:${{ env.DATE }},eric2369/debian11-python-shadowsocksr:latest
+          platforms: linux/amd64,linux/arm64
+
       - name: Build and push Docker image for debian12-nodejs-typescript-salesforcecli
-        if: ${{ fromJSON(github.event.inputs.debian12_nodejs_typescript_salesforcecli) }}
+        if: ${{ fromJSON(github.event.inputs.build_debian12_nodejs_typescript_salesforcecli) }}
         uses: docker/build-push-action@v6
         with:
           context: ./debian12-nodejs-typescript-salesforcecli
@@ -56,21 +66,11 @@ jobs:
           platforms: linux/amd64,linux/arm64
 
       - name: Build and push Docker image for debian12-nodejs-typescript-salesforcecli-chromium
-        if: ${{ fromJSON(github.event.inputs.debian12_nodejs_typescript_salesforcecli_chromium) }}
+        if: ${{ fromJSON(github.event.inputs.build_debian12_nodejs_typescript_salesforcecli_chromium) }}
         uses: docker/build-push-action@v6
         with:
           context: ./debian12-nodejs-typescript-salesforcecli-chromium
           file: ./debian12-nodejs-typescript-salesforcecli-chromium/Dockerfile
           push: ${{ fromJSON(github.event.inputs.push_images) }}
           tags: eric2369/debian12-nodejs-typescript-salesforcecli-chromium:${{ env.DATE }},eric2369/debian12-nodejs-typescript-salesforcecli-chromium:latest
-          platforms: linux/amd64,linux/arm64
-
-      - name: Build and push Docker image for debian12-python-shadowsocksr
-        if: ${{ fromJSON(github.event.inputs.debian12_python_shadowsocksr) }}
-        uses: docker/build-push-action@v6
-        with:
-          context: ./debian12-python-shadowsocksr
-          file: ./debian12-python-shadowsocksr/Dockerfile
-          push: ${{ fromJSON(github.event.inputs.push_images) }}
-          tags: eric2369/debian12-python-shadowsocksr:${{ env.DATE }},eric2369/debian12-python-shadowsocksr:latest
           platforms: linux/amd64,linux/arm64
