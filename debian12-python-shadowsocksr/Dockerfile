@@ -2,7 +2,7 @@ FROM python:3.9.20-slim-bookworm
 LABEL authors="eric2369"
 
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends git openssh-client \
+    && apt-get install -y --no-install-recommends git openssh-client libsodium-dev \
     && rm -rf /var/lib/apt/lists/*
 
 RUN useradd -m -s /bin/bash shadowsocksr
