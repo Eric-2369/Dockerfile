@@ -27,6 +27,10 @@ RUN set -eux; \
     unzip /home/serverstatus/serverstatus.zip -d /home/serverstatus; \
     rm /home/serverstatus/serverstatus.zip
 
+RUN echo '#!/bin/bash' > /home/serverstatus/start.sh \
+    && echo 'exec /home/serverstatus/stat_server -c /home/serverstatus/config.toml' >> /home/serverstatus/start.sh \
+    && chmod +x /home/serverstatus/start.sh
+
 EXPOSE 8080
 
-CMD /home/serverstatus/stat_server -c /home/serverstatus/config.toml
+CMD ["/home/serverstatus/start.sh"]

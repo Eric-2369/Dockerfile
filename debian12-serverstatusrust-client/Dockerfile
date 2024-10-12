@@ -27,8 +27,12 @@ RUN set -eux; \
     unzip /home/serverstatus/serverstatus.zip -d /home/serverstatus; \
     rm /home/serverstatus/serverstatus.zip
 
+RUN echo '#!/bin/bash' > /home/serverstatus/start.sh \
+    && echo 'exec /home/serverstatus/stat_client --addr "$ADDR" --user "$USER" --pass "$PASS" --interval 1' >> /home/serverstatus/start.sh \
+    && chmod +x /home/serverstatus/start.sh
+
 ENV ADDR=""
 ENV USER=""
 ENV PASS=""
 
-CMD sh -c '/home/serverstatus/stat_client --addr "$ADDR" --user "$USER" --pass "$PASS" --interval 1'
+CMD ["/home/serverstatus/start.sh"]
