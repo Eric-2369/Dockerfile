@@ -5,7 +5,7 @@ RUN apt-get update \
     && apt-get install -y --no-install-recommends curl ca-certificates unzip procps iproute2 \
     && rm -rf /var/lib/apt/lists/*
 
-RUN useradd -m -s /bin/bash serverstatus
+RUN useradd --create-home --shell /bin/bash serverstatus
 
 USER serverstatus
 

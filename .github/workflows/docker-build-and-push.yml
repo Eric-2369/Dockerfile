@@ -13,6 +13,11 @@ on:
         required: false
         default: false
         type: boolean
+      build_debian12_codeserver:
+        description: 'Build debian12-codeserver'
+        required: false
+        default: false
+        type: boolean
       build_debian12_nodejs_typescript_salesforcecli:
         description: 'Build debian12-nodejs-typescript-salesforcecli'
         required: false
@@ -63,6 +68,16 @@ jobs:
           file: ./debian11-python-shadowsocksr/Dockerfile
           push: ${{ fromJSON(github.event.inputs.push_images) }}
           tags: eric2369/debian11-python-shadowsocksr:${{ env.DATE }},eric2369/debian11-python-shadowsocksr:latest
+          platforms: linux/amd64,linux/arm64
+
+      - name: Build and push Docker image for debian12-codeserver
+        if: ${{ fromJSON(github.event.inputs.build_debian12_codeserver) }}
+        uses: docker/build-push-action@v6
+        with:
+          context: ./debian12-codeserver
+          file: ./debian12-codeserver/Dockerfile
+          push: ${{ fromJSON(github.event.inputs.push_images) }}
+          tags: eric2369/debian12-codeserver:${{ env.DATE }},eric2369/debian12-codeserver:latest
           platforms: linux/amd64,linux/arm64
 
       - name: Build and push Docker image for debian12-nodejs-typescript-salesforcecli

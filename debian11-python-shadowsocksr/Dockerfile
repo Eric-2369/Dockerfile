@@ -5,7 +5,7 @@ RUN apt-get update \
     && apt-get install -y --no-install-recommends curl ca-certificates git openssh-client python3 \
     && rm -rf /var/lib/apt/lists/*
 
-RUN useradd -m -s /bin/bash shadowsocksr
+RUN useradd --create-home --shell /bin/bash shadowsocksr
 
 USER shadowsocksr
 
