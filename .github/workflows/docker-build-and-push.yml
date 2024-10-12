@@ -23,6 +23,16 @@ on:
         required: false
         default: false
         type: boolean
+      build_debian12_serverstatusrust_client:
+        description: 'Build debian12-serverstatusrust-client'
+        required: false
+        default: false
+        type: boolean
+      build_debian12_serverstatusrust_server:
+        description: 'Build debian12-serverstatusrust-server'
+        required: false
+        default: false
+        type: boolean
 
 jobs:
   build-and-push:
@@ -73,4 +83,24 @@ jobs:
           file: ./debian12-nodejs-typescript-salesforcecli-chromium/Dockerfile
           push: ${{ fromJSON(github.event.inputs.push_images) }}
           tags: eric2369/debian12-nodejs-typescript-salesforcecli-chromium:${{ env.DATE }},eric2369/debian12-nodejs-typescript-salesforcecli-chromium:latest
+          platforms: linux/amd64,linux/arm64
+
+      - name: Build and push Docker image for debian12-serverstatusrust-client
+        if: ${{ fromJSON(github.event.inputs.build_debian12_serverstatusrust_client) }}
+        uses: docker/build-push-action@v6
+        with:
+          context: ./debian12-serverstatusrust-client
+          file: ./debian12-serverstatusrust-client/Dockerfile
+          push: ${{ fromJSON(github.event.inputs.push_images) }}
+          tags: eric2369/debian12-serverstatusrust-client:${{ env.DATE }},eric2369/debian12-serverstatusrust-client:latest
+          platforms: linux/amd64,linux/arm64
+
+      - name: Build and push Docker image for debian12-serverstatusrust-server
+        if: ${{ fromJSON(github.event.inputs.build_debian12_serverstatusrust_server) }}
+        uses: docker/build-push-action@v6
+        with:
+          context: ./debian12-serverstatusrust-server
+          file: ./debian12-serverstatusrust-server/Dockerfile
+          push: ${{ fromJSON(github.event.inputs.push_images) }}
+          tags: eric2369/debian12-serverstatusrust-server:${{ env.DATE }},eric2369/debian12-serverstatusrust-server:latest
           platforms: linux/amd64,linux/arm64
