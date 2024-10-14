@@ -39,7 +39,8 @@ RUN set -eux; \
     esac; \
     curl "${URL}" --location --output /home/eric2369/miniconda.sh; \
     bash /home/eric2369/miniconda.sh -b -p /home/eric2369/miniconda; \
-    rm /home/eric2369/miniconda.sh
+    rm /home/eric2369/miniconda.sh; \
+    echo 'export PATH="/home/eric2369/miniconda/bin:$PATH"' >> /home/eric2369/.bashrc
 
 RUN curl "https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh" --location --output - | bash
 
