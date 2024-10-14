@@ -21,10 +21,10 @@ RUN set -eux; \
     esac; \
     curl "${URL}" --location | tar --extract --xz --directory=/usr/local --strip-components=1
 
-RUN npm install typescript tsx @salesforce/cli -g \
+RUN npm install typescript@5.6.3 tsx@4.19.1 @salesforce/cli@2.61.8 -g \
     && npm cache clean --force
 
-RUN echo y | sf plugins install sfdx-git-delta \
+RUN echo y | sf plugins install sfdx-git-delta@5.47.0 \
     && npm cache clean --force
 
 RUN apt-get update \
