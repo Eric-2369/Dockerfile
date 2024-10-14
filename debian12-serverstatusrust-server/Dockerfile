@@ -24,7 +24,7 @@ RUN set -eux; \
             ;; \
     esac; \
     curl "${URL}" --location --output /home/serverstatus/serverstatus.zip; \
-    unzip /home/serverstatus/serverstatus.zip --extract-dir /home/serverstatus; \
+    unzip /home/serverstatus/serverstatus.zip -d /home/serverstatus; \
     rm /home/serverstatus/serverstatus.zip
 
 RUN mkdir --parents /home/serverstatus/config \
