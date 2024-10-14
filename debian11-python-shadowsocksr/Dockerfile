@@ -9,7 +9,7 @@ RUN useradd --create-home --shell /bin/bash shadowsocksr
 
 USER shadowsocksr
 
-RUN git clone -b manyuser https://github.com/shadowsocksrr/shadowsocksr.git /home/shadowsocksr/shadowsocksr
+RUN git clone --branch manyuser "https://github.com/shadowsocksrr/shadowsocksr.git" /home/shadowsocksr/shadowsocksr
 
 RUN echo '#!/bin/bash' > /home/shadowsocksr/shadowsocksr/shadowsocks/start.sh \
     && echo 'cat << EOF > /home/shadowsocksr/shadowsocksr/shadowsocks/config.json' >> /home/shadowsocksr/shadowsocksr/shadowsocks/start.sh \

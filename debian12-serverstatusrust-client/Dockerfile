@@ -13,18 +13,18 @@ ARG TARGETPLATFORM
 RUN set -eux; \
     case "${TARGETPLATFORM}" in \
         "linux/amd64") \
-            ARCH='x86_64-unknown-linux-musl'; \
+            URL="https://github.com/zdz/ServerStatus-Rust/releases/download/v1.8.1/client-x86_64-unknown-linux-musl.zip"; \
             ;; \
         "linux/arm64") \
-            ARCH='aarch64-unknown-linux-musl'; \
+            URL="https://github.com/zdz/ServerStatus-Rust/releases/download/v1.8.1/client-aarch64-unknown-linux-musl.zip"; \
             ;; \
         *) \
             echo "Unsupported platform: ${TARGETPLATFORM}"; \
             exit 1; \
             ;; \
     esac; \
-    curl "https://github.com/zdz/ServerStatus-Rust/releases/download/v1.8.1/client-${ARCH}.zip" --location --output /home/serverstatus/serverstatus.zip; \
-    unzip /home/serverstatus/serverstatus.zip -d /home/serverstatus; \
+    curl "${URL}" --location --output /home/serverstatus/serverstatus.zip; \
+    unzip /home/serverstatus/serverstatus.zip --extract-dir /home/serverstatus; \
     rm /home/serverstatus/serverstatus.zip
 
 RUN echo '#!/bin/bash' > /home/serverstatus/start.sh \

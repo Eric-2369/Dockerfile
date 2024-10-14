@@ -9,17 +9,17 @@ ARG TARGETPLATFORM
 RUN set -eux; \
     case "${TARGETPLATFORM}" in \
         "linux/amd64") \
-            ARCH='x64'; \
+            URL="https://nodejs.org/dist/v20.18.0/node-v20.18.0-linux-x64.tar.xz"; \
             ;; \
         "linux/arm64") \
-            ARCH='arm64'; \
+            URL="https://nodejs.org/dist/v20.18.0/node-v20.18.0-linux-arm64.tar.xz"; \
             ;; \
         *) \
             echo "Unsupported platform: ${TARGETPLATFORM}"; \
             exit 1; \
             ;; \
     esac; \
-    curl https://nodejs.org/dist/v20.18.0/node-v20.18.0-linux-${ARCH}.tar.xz | tar -xJC /usr/local --strip-components=1
+    curl "${URL}" --location | tar --extract --xz --directory=/usr/local --strip-components=1
 
 RUN npm install typescript tsx @salesforce/cli -g \
     && npm cache clean --force
