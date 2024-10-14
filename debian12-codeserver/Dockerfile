@@ -8,8 +8,6 @@ RUN apt-get update \
 RUN useradd --create-home --shell /bin/bash eric2369 \
     && echo "eric2369 ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/nopasswd
 
-USER eric2369
-
 ARG TARGETPLATFORM
 RUN set -eux; \
     case "${TARGETPLATFORM}" in \
@@ -25,8 +23,10 @@ RUN set -eux; \
             ;; \
     esac; \
     curl "${URL}" --location --output /home/eric2369/code-server.deb; \
-    sudo dpkg -i /home/eric2369/code-server.deb; \
+    dpkg -i /home/eric2369/code-server.deb; \
     rm /home/eric2369/code-server.deb
+
+USER eric2369
 
 RUN set -eux; \
     case "${TARGETPLATFORM}" in \
