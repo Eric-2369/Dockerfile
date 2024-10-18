@@ -1,4 +1,4 @@
-FROM debian:bookworm-20240926-slim
+FROM debian:bookworm-20241016-slim
 LABEL authors="eric2369"
 
 RUN apt-get update \
@@ -21,7 +21,7 @@ RUN set -eux; \
     esac; \
     curl "${URL}" --location | tar --extract --xz --directory=/usr/local --strip-components=1
 
-RUN npm install typescript@5.6.3 tsx@4.19.1 @salesforce/cli@2.61.8 -g \
+RUN npm install typescript@5.6.3 tsx@4.19.1 @salesforce/cli@2.62.6 -g \
     && npm cache clean --force
 
 RUN echo y | sf plugins install sfdx-git-delta@5.47.0 \

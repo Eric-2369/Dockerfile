@@ -1,4 +1,4 @@
-FROM debian:bullseye-20240926-slim
+FROM debian:bullseye-20241016-slim
 LABEL authors="eric2369"
 
 RUN apt-get update \
@@ -43,5 +43,6 @@ ENV PROTOCOL_PARAM=""
 ENV OBFS="tls1.2_ticket_auth_compatible"
 ENV OBFS_PARAM=""
 ENV DNS_IPV6="false"
+ENV TZ="Asia/Shanghai"
 
 CMD ["/home/shadowsocksr/shadowsocksr/shadowsocks/start.sh"]
