@@ -1,0 +1,26 @@
+services:
+  debian12-serverstatusrust-server:
+    image: "eric2369/debian12-serverstatusrust-server:latest"
+    container_name: "debian12-serverstatusrust-server-container"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.debian12-serverstatusrust-server.loadbalancer.server.port=8080"
+      - "traefik.http.routers.debian12-serverstatusrust-server.service=debian12-serverstatusrust-server"
+      - "traefik.http.routers.debian12-serverstatusrust-server.rule=Host(`${DOMAIN}`)"
+      - "traefik.http.routers.debian12-serverstatusrust-server.entrypoints=websecure"
+      - "traefik.http.routers.debian12-serverstatusrust-server.tls.certresolver=leresolver"
+    volumes:
+      - "debian12-serverstatusrust-server-volume:/home/serverstatus/config"
+    networks:
+      - "traefik-network"
+    restart: "unless-stopped"
+    environment:
+      - "RUST_LOG=error,stat_server::stats=off"
+
+volumes:
+  debian12-serverstatusrust-server-volume:
+    name: "debian12-serverstatusrust-server-volume"
+
+networks:
+  traefik-network:
+    external: true

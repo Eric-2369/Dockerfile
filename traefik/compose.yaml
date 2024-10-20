@@ -1,0 +1,47 @@
+version: "3.9"
+
+services:
+  traefik:
+    image: "traefik:3.1.6"
+    container_name: "traefik-container"
+    command:
+      - "--entryPoints.web.address=:80"
+      - "--entryPoints.websecure.address=:443"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedByDefault=false"
+      - "--providers.docker.endpoint=unix:///var/run/docker.sock"
+      - "--log.level=INFO"
+      - "--certificatesresolvers.leresolver.acme.httpchallenge=true"
+      - "--certificatesresolvers.leresolver.acme.httpchallenge.entrypoint=web"
+      - "--certificatesresolvers.leresolver.acme.email=${EMAIL}"
+      - "--certificatesresolvers.leresolver.acme.storage=/traefik-volume/acme.json"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.http-catchall.rule=hostregexp(`{host:.+}`)"
+      - "traefik.http.routers.http-catchall.entrypoints=web"
+      - "traefik.http.routers.http-catchall.middlewares=redirect-to-https"
+      - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
+      - "traefik.http.middlewares.redirect-to-https.redirectscheme.permanent=true"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "traefik-volume:/traefik-volume"
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - "traefik-network"
+    restart: "unless-stopped"
+
+volumes:
+  traefik-volume:
+    name: "traefik-volume"
+
+networks:
+  traefik-network:
+    name: "traefik-network"
+    driver: "bridge"
+    ipam:
+      config:
+        - subnet: "172.32.0.0/16"
+          ip_range: "172.32.1.0/24"
+          gateway: "172.32.0.1"

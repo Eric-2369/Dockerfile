@@ -1,0 +1,10 @@
+services:
+  debian12-serverstatusrust-client:
+    image: "eric2369/debian12-serverstatusrust-client:latest"
+    container_name: "debian12-serverstatusrust-client-container"
+    network_mode: "host"
+    restart: "unless-stopped"
+    environment:
+      - "ADDR=${ADDR}"
+      - "USER=${USER}"
+      - "PASS=${PASS}"

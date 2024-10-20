@@ -1,0 +1,18 @@
+services:
+  debian11-python-shadowsocksr:
+    image: "eric2369/debian11-python-shadowsocksr:latest"
+    container_name: "debian11-python-shadowsocksr-container"
+    ports:
+      - "${SERVER_PORT}:${SERVER_PORT}"
+    network_mode: "host"
+    restart: "unless-stopped"
+    environment:
+      - "SERVER_PORT=${SERVER_PORT}"
+      - "PASSWORD=${PASSWORD}"
+      - "METHOD=${METHOD}"
+      - "PROTOCOL=${PROTOCOL}"
+      - "PROTOCOL_PARAM=${PROTOCOL_PARAM}"
+      - "OBFS=${OBFS}"
+      - "OBFS_PARAM=${OBFS_PARAM}"
+      - "DNS_IPV6=${DNS_IPV6}"
+      - "TZ=${TZ}"

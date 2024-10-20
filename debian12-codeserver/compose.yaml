@@ -1,0 +1,26 @@
+services:
+  debian12-codeserver:
+    image: "eric2369/debian12-codeserver:latest"
+    container_name: "debian12-codeserver-container"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.debian12-codeserver.loadbalancer.server.port=8080"
+      - "traefik.http.routers.debian12-codeserver.service=debian12-codeserver"
+      - "traefik.http.routers.debian12-codeserver.rule=Host(`${DOMAIN}`)"
+      - "traefik.http.routers.debian12-codeserver.entrypoints=websecure"
+      - "traefik.http.routers.debian12-codeserver.tls.certresolver=leresolver"
+    volumes:
+      - "debian12-codeserver-volume:/home/coder/project"
+    networks:
+      - "traefik-network"
+    restart: "unless-stopped"
+    environment:
+      - "PASSWORD=${PASSWORD}"
+
+volumes:
+  debian12-codeserver-volume:
+    name: "debian12-codeserver-volume"
+
+networks:
+  traefik-network:
+    external: true

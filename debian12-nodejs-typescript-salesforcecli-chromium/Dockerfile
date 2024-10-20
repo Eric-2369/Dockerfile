@@ -24,7 +24,7 @@ RUN set -eux; \
 RUN npm install typescript@5.6.3 tsx@4.19.1 @salesforce/cli@2.62.6 -g \
     && npm cache clean --force
 
-RUN echo y | sf plugins install sfdx-git-delta@5.47.0 \
+RUN echo y | sf plugins install sfdx-git-delta@5.49.0 \
     && npm cache clean --force
 
 RUN apt-get update \
