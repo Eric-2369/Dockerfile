@@ -1,4 +1,4 @@
-FROM debian:bullseye-20241016-slim
+FROM debian:bullseye-20241111-slim
 LABEL authors="eric2369"
 
 RUN apt-get update \
