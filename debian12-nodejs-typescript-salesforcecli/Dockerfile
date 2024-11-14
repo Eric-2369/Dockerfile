@@ -25,8 +25,8 @@ RUN npm install typescript@5.6.3 tsx@4.19.2 @salesforce/cli@2.66.7 -g \
     && npm cache clean --force
 
 RUN mkdir -p /root/.config/sf \
-    && echo '["sfdx-git-delta", "sfdx-browserforce-plugin"]' > /root/.config/sf/unsignedPluginAllowList.json \
-    && sf plugins install sfdx-git-delta@5.49.3 sfdx-browserforce-plugin@4.4.2 \
+    && echo '["sfdx-git-delta"]' > /root/.config/sf/unsignedPluginAllowList.json \
+    && sf plugins install sfdx-git-delta@5.49.3 \
     && npm cache clean --force
 
 CMD ["/bin/bash"]
