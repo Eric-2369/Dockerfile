@@ -2,7 +2,7 @@ FROM debian:bookworm-20241111-slim
 LABEL authors="eric2369"
 
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends curl ca-certificates git openssh-client xz-utils \
+    && apt-get install -y --no-install-recommends dumb-init curl ca-certificates git openssh-client xz-utils \
     && rm -rf /var/lib/apt/lists/*
 
 ARG TARGETPLATFORM
@@ -21,16 +21,17 @@ RUN set -eux; \
     esac; \
     curl "${URL}" --location | tar --extract --xz --directory=/usr/local --strip-components=1
 
-RUN npm install typescript@5.6.3 tsx@4.19.2 @salesforce/cli@2.66.7 -g \
+RUN npm install typescript@5.6.3 tsx@4.19.2 @salesforce/cli@2.67.7 -g \
     && npm cache clean --force
 
 RUN mkdir -p /root/.config/sf \
     && echo '["sfdx-git-delta"]' > /root/.config/sf/unsignedPluginAllowList.json \
-    && sf plugins install sfdx-git-delta@5.49.3 \
+    && sf plugins install sfdx-git-delta@5.49.4 \
     && npm cache clean --force
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends chromium \
     && rm -rf /var/lib/apt/lists/*
 
+ENTRYPOINT ["/usr/bin/dumb-init", "--"]
 CMD ["/bin/bash"]

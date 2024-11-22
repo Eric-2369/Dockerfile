@@ -2,7 +2,7 @@ FROM debian:bullseye-20241111-slim
 LABEL authors="eric2369"
 
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends curl ca-certificates git openssh-client python3 \
+    && apt-get install -y --no-install-recommends dumb-init curl ca-certificates git openssh-client python3 \
     && rm -rf /var/lib/apt/lists/*
 
 RUN useradd --create-home --shell /bin/bash shadowsocksr
@@ -45,4 +45,5 @@ ENV OBFS_PARAM=""
 ENV DNS_IPV6="false"
 ENV TZ="Asia/Shanghai"
 
-CMD ["/home/shadowsocksr/shadowsocksr/shadowsocks/start.sh"]
+ENTRYPOINT ["/usr/bin/dumb-init", "--"]
+CMD ["bash", "-c", "/home/shadowsocksr/shadowsocksr/shadowsocks/start.sh"]

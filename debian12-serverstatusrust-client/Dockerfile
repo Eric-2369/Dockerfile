@@ -2,7 +2,7 @@ FROM debian:bookworm-20241111-slim
 LABEL authors="eric2369"
 
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends curl ca-certificates unzip procps iproute2 \
+    && apt-get install -y --no-install-recommends dumb-init curl ca-certificates unzip procps iproute2 \
     && rm -rf /var/lib/apt/lists/*
 
 RUN useradd --create-home --shell /bin/bash serverstatus
@@ -35,4 +35,5 @@ ENV ADDR=""
 ENV USER=""
 ENV PASS=""
 
-CMD ["/home/serverstatus/start.sh"]
+ENTRYPOINT ["/usr/bin/dumb-init", "--"]
+CMD ["bash", "-c", "/home/serverstatus/start.sh"]

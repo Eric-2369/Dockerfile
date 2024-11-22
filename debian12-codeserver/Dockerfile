@@ -2,7 +2,7 @@ FROM debian:bookworm-20241111-slim
 LABEL authors="eric2369"
 
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends curl ca-certificates git openssh-client dumb-init sudo wget vim zip unzip htop procps \
+    && apt-get install -y --no-install-recommends dumb-init curl ca-certificates git openssh-client sudo wget vim zip unzip htop procps \
     && rm -rf /var/lib/apt/lists/*
 
 RUN useradd --create-home --shell /bin/bash eric2369 \
@@ -12,10 +12,10 @@ ARG TARGETPLATFORM
 RUN set -eux; \
     case "${TARGETPLATFORM}" in \
         "linux/amd64") \
-            URL="https://github.com/coder/code-server/releases/download/v4.95.2/code-server_4.95.2_amd64.deb"; \
+            URL="https://github.com/coder/code-server/releases/download/v4.95.3/code-server_4.95.3_amd64.deb"; \
             ;; \
         "linux/arm64") \
-            URL="https://github.com/coder/code-server/releases/download/v4.95.2/code-server_4.95.2_arm64.deb"; \
+            URL="https://github.com/coder/code-server/releases/download/v4.95.3/code-server_4.95.3_arm64.deb"; \
             ;; \
         *) \
             echo "Unsupported platform: ${TARGETPLATFORM}"; \
@@ -50,11 +50,12 @@ RUN curl "https://sh.rustup.rs" --location --output - | bash -s -- -y --default-
 
 RUN echo "#!/bin/sh" > /home/eric2369/start.sh \
     && echo "set -eu" >> /home/eric2369/start.sh \
-    && echo "exec dumb-init /usr/bin/code-server --bind-addr 0.0.0.0:8080 --auth password --disable-telemetry --disable-update-check /home/eric2369/project" >> /home/eric2369/start.sh \
+    && echo "exec /usr/bin/code-server --bind-addr 0.0.0.0:8080 --auth password --disable-telemetry --disable-update-check /home/eric2369/project" >> /home/eric2369/start.sh \
     && chmod +x /home/eric2369/start.sh
 
 ENV PASSWORD="Eric2369"
 VOLUME /home/eric2369/project
 EXPOSE 8080
 
-CMD ["/home/eric2369/start.sh"]
+ENTRYPOINT ["/usr/bin/dumb-init", "--"]
+CMD ["bash", "-c", "/home/eric2369/start.sh"]
