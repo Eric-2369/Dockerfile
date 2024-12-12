@@ -1,4 +1,4 @@
-FROM debian:bookworm-20241111-slim
+FROM debian:bookworm-20241202-slim
 LABEL authors="eric2369"
 
 RUN apt-get update \
