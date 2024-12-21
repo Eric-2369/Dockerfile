@@ -28,12 +28,13 @@ RUN set -eux; \
     rm /home/serverstatus/serverstatus.zip
 
 RUN echo '#!/bin/bash' > /home/serverstatus/start.sh \
-    && echo 'exec /home/serverstatus/stat_client --addr "$ADDR" --user "$USER" --pass "$PASS" --interval 1' >> /home/serverstatus/start.sh \
+    && echo 'exec /home/serverstatus/stat_client --addr "$ADDR" --user "$USER" --pass "$PASS" --interval "$INTERVAL"' >> /home/serverstatus/start.sh \
     && chmod +x /home/serverstatus/start.sh
 
-ENV ADDR=""
-ENV USER=""
-ENV PASS=""
+ENV ADDR="https://ssr.rs/report"
+ENV USER="h1"
+ENV PASS="p1"
+ENV INTERVAL="1"
 
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]
 CMD ["bash", "-c", "/home/serverstatus/start.sh"]

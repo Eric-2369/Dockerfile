@@ -8,3 +8,4 @@ services:
       - "ADDR=${ADDR}"
       - "USER=${USER}"
       - "PASS=${PASS}"
+      - "INTERVAL=${INTERVAL}"
