@@ -10,7 +10,7 @@ services:
       - "traefik.http.routers.debian12-codeserver.entrypoints=websecure"
       - "traefik.http.routers.debian12-codeserver.tls.certresolver=leresolver"
     volumes:
-      - "debian12-codeserver-volume:/home/coder/project"
+      - "debian12-codeserver-volume:/home/eric2369/project"
     networks:
       - "traefik-network"
     restart: "unless-stopped"
