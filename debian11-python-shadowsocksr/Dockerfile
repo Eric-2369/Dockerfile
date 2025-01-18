@@ -11,7 +11,8 @@ USER shadowsocksr
 
 RUN git clone --branch manyuser "https://github.com/shadowsocksrr/shadowsocksr.git" /home/shadowsocksr/shadowsocksr
 
-RUN echo '#!/bin/bash -euo pipefail' > /home/shadowsocksr/shadowsocksr/shadowsocks/start.sh \
+RUN echo '#!/bin/bash' > /home/shadowsocksr/shadowsocksr/shadowsocks/start.sh \
+    && echo 'set -euo pipefail' >> /home/shadowsocksr/shadowsocksr/shadowsocks/start.sh \
     && echo 'cat << EOF > /home/shadowsocksr/shadowsocksr/shadowsocks/config.json' >> /home/shadowsocksr/shadowsocksr/shadowsocks/start.sh \
     && echo '{' >> /home/shadowsocksr/shadowsocksr/shadowsocks/start.sh \
     && echo '"server":"0.0.0.0",' >> /home/shadowsocksr/shadowsocksr/shadowsocks/start.sh \

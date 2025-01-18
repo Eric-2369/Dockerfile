@@ -27,7 +27,8 @@ RUN set -eux; \
     unzip /home/serverstatus/serverstatus.zip -d /home/serverstatus; \
     rm /home/serverstatus/serverstatus.zip
 
-RUN echo '#!/bin/bash -euo pipefail' > /home/serverstatus/start.sh \
+RUN echo '#!/bin/bash' > /home/serverstatus/start.sh \
+    && echo 'set -euo pipefail' >> /home/serverstatus/start.sh \
     && echo 'exec /home/serverstatus/stat_client --addr "$ADDR" --user "$USER" --pass "$PASS" --interval "$INTERVAL"' >> /home/serverstatus/start.sh \
     && chmod +x /home/serverstatus/start.sh
 

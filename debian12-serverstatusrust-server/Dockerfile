@@ -29,7 +29,8 @@ RUN set -eux; \
 
 RUN mkdir --parents /home/serverstatus/config \
     && mv /home/serverstatus/config.toml /home/serverstatus/config/config.toml \
-    && echo '#!/bin/bash -euo pipefail' > /home/serverstatus/start.sh \
+    && echo '#!/bin/bash' > /home/serverstatus/start.sh \
+    && echo 'set -euo pipefail' >> /home/serverstatus/start.sh \
     && echo 'exec /home/serverstatus/stat_server -c /home/serverstatus/config/config.toml' >> /home/serverstatus/start.sh \
     && chmod +x /home/serverstatus/start.sh
 

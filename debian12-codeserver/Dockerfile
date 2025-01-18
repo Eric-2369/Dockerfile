@@ -48,7 +48,8 @@ RUN curl "https://get.sdkman.io" --location --output - | bash
 
 RUN curl "https://sh.rustup.rs" --location --output - | bash -s -- -y --default-toolchain none
 
-RUN echo "#!/bin/bash -euo pipefail" > /home/eric2369/start.sh \
+RUN echo "#!/bin/bash" > /home/eric2369/start.sh \
+    && echo "set -euo pipefail" >> /home/eric2369/start.sh \
     && echo "exec /usr/bin/code-server --bind-addr 0.0.0.0:8080 --auth password --disable-telemetry --disable-update-check /home/eric2369/project" >> /home/eric2369/start.sh \
     && chmod +x /home/eric2369/start.sh
 
