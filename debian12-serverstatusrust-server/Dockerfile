@@ -1,4 +1,4 @@
-FROM debian:bookworm-20241223-slim
+FROM debian:bookworm-20250113-slim
 LABEL authors="eric2369"
 
 RUN apt-get update \
@@ -29,7 +29,7 @@ RUN set -eux; \
 
 RUN mkdir --parents /home/serverstatus/config \
     && mv /home/serverstatus/config.toml /home/serverstatus/config/config.toml \
-    && echo '#!/bin/bash' > /home/serverstatus/start.sh \
+    && echo '#!/bin/bash -euo pipefail' > /home/serverstatus/start.sh \
     && echo 'exec /home/serverstatus/stat_server -c /home/serverstatus/config/config.toml' >> /home/serverstatus/start.sh \
     && chmod +x /home/serverstatus/start.sh
 

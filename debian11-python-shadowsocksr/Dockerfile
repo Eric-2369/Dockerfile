@@ -1,4 +1,4 @@
-FROM debian:bullseye-20241223-slim
+FROM debian:bullseye-20250113-slim
 LABEL authors="eric2369"
 
 RUN apt-get update \
@@ -11,7 +11,7 @@ USER shadowsocksr
 
 RUN git clone --branch manyuser "https://github.com/shadowsocksrr/shadowsocksr.git" /home/shadowsocksr/shadowsocksr
 
-RUN echo '#!/bin/bash' > /home/shadowsocksr/shadowsocksr/shadowsocks/start.sh \
+RUN echo '#!/bin/bash -euo pipefail' > /home/shadowsocksr/shadowsocksr/shadowsocks/start.sh \
     && echo 'cat << EOF > /home/shadowsocksr/shadowsocksr/shadowsocks/config.json' >> /home/shadowsocksr/shadowsocksr/shadowsocks/start.sh \
     && echo '{' >> /home/shadowsocksr/shadowsocksr/shadowsocks/start.sh \
     && echo '"server":"0.0.0.0",' >> /home/shadowsocksr/shadowsocksr/shadowsocks/start.sh \

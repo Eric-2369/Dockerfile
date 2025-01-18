@@ -1,4 +1,4 @@
-FROM debian:bookworm-20241223-slim
+FROM debian:bookworm-20250113-slim
 LABEL authors="eric2369"
 
 RUN apt-get update \
@@ -48,8 +48,7 @@ RUN curl "https://get.sdkman.io" --location --output - | bash
 
 RUN curl "https://sh.rustup.rs" --location --output - | bash -s -- -y --default-toolchain none
 
-RUN echo "#!/bin/sh" > /home/eric2369/start.sh \
-    && echo "set -eu" >> /home/eric2369/start.sh \
+RUN echo "#!/bin/bash -euo pipefail" > /home/eric2369/start.sh \
     && echo "exec /usr/bin/code-server --bind-addr 0.0.0.0:8080 --auth password --disable-telemetry --disable-update-check /home/eric2369/project" >> /home/eric2369/start.sh \
     && chmod +x /home/eric2369/start.sh
 
