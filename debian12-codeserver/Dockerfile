@@ -12,10 +12,10 @@ ARG TARGETPLATFORM
 RUN set -eux; \
     case "${TARGETPLATFORM}" in \
         "linux/amd64") \
-            URL="https://github.com/coder/code-server/releases/download/v4.96.2/code-server_4.96.2_amd64.deb"; \
+            URL="https://github.com/coder/code-server/releases/download/v4.96.4/code-server_4.96.4_amd64.deb"; \
             ;; \
         "linux/arm64") \
-            URL="https://github.com/coder/code-server/releases/download/v4.96.2/code-server_4.96.2_arm64.deb"; \
+            URL="https://github.com/coder/code-server/releases/download/v4.96.4/code-server_4.96.4_arm64.deb"; \
             ;; \
         *) \
             echo "Unsupported platform: ${TARGETPLATFORM}"; \
