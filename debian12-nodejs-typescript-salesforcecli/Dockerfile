@@ -1,4 +1,4 @@
-FROM debian:bookworm-20250113-slim
+FROM debian:bookworm-20250203-slim
 LABEL authors="eric2369"
 
 RUN apt-get update \
@@ -21,12 +21,12 @@ RUN set -eux; \
     esac; \
     curl "${URL}" --location | tar --extract --xz --directory=/usr/local --strip-components=1
 
-RUN npm install typescript@5.7.3 tsx@4.19.2 @salesforce/cli@2.74.6 -g \
+RUN npm install typescript@5.7.3 tsx@4.19.2 @salesforce/cli@2.75.5 -g \
     && npm cache clean --force
 
 RUN mkdir -p /root/.config/sf \
     && echo '["sfdx-git-delta"]' > /root/.config/sf/unsignedPluginAllowList.json \
-    && sf plugins install sfdx-git-delta@6.2.1 \
+    && sf plugins install sfdx-git-delta@6.3.0 \
     && npm cache clean --force
 
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]

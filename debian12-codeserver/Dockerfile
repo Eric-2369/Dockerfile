@@ -1,4 +1,4 @@
-FROM debian:bookworm-20250113-slim
+FROM debian:bookworm-20250203-slim
 LABEL authors="eric2369"
 
 RUN apt-get update \
@@ -31,10 +31,10 @@ USER eric2369
 RUN set -eux; \
     case "${TARGETPLATFORM}" in \
         "linux/amd64") \
-            URL="https://repo.anaconda.com/miniconda/Miniconda3-py312_24.11.1-0-Linux-x86_64.sh"; \
+            URL="https://repo.anaconda.com/miniconda/Miniconda3-py312_25.1.1-0-Linux-x86_64.sh"; \
             ;; \
         "linux/arm64") \
-            URL="https://repo.anaconda.com/miniconda/Miniconda3-py312_24.11.1-0-Linux-aarch64.sh"; \
+            URL="https://repo.anaconda.com/miniconda/Miniconda3-py312_25.1.1-0-Linux-aarch64.sh"; \
             ;; \
     esac; \
     curl "${URL}" --location --output /home/eric2369/miniconda.sh; \
