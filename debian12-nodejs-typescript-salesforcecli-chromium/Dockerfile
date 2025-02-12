@@ -9,10 +9,10 @@ ARG TARGETPLATFORM
 RUN set -eux; \
     case "${TARGETPLATFORM}" in \
         "linux/amd64") \
-            URL="https://nodejs.org/dist/v22.13.1/node-v22.13.1-linux-x64.tar.xz"; \
+            URL="https://nodejs.org/dist/v22.14.0/node-v22.14.0-linux-x64.tar.xz"; \
             ;; \
         "linux/arm64") \
-            URL="https://nodejs.org/dist/v22.13.1/node-v22.13.1-linux-arm64.tar.xz"; \
+            URL="https://nodejs.org/dist/v22.14.0/node-v22.14.0-linux-arm64.tar.xz"; \
             ;; \
         *) \
             echo "Unsupported platform: ${TARGETPLATFORM}"; \
