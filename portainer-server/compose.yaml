@@ -1,6 +1,6 @@
 services:
   traefik:
-    image: "traefik:3.3.3"
+    image: "traefik:3.3.4"
     container_name: "traefik-container"
     command:
       - "--entryPoints.web.address=:80"
@@ -31,7 +31,7 @@ services:
     restart: "unless-stopped"
 
   portainer-server:
-    image: "portainer/portainer-ce:2.21.5"
+    image: "portainer/portainer-ce:2.27.2"
     container_name: "portainer-server-container"
     command: "-H unix:///var/run/docker.sock"
     labels:
