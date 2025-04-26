@@ -1,4 +1,4 @@
-FROM debian:bookworm-20250317-slim
+FROM debian:bookworm-20250407-slim
 LABEL authors="eric2369"
 
 RUN apt-get update \
@@ -9,10 +9,10 @@ ARG TARGETPLATFORM
 RUN set -eux; \
     case "${TARGETPLATFORM}" in \
         "linux/amd64") \
-            URL="https://nodejs.org/dist/v22.14.0/node-v22.14.0-linux-x64.tar.xz"; \
+            URL="https://nodejs.org/dist/v22.15.0/node-v22.15.0-linux-x64.tar.xz"; \
             ;; \
         "linux/arm64") \
-            URL="https://nodejs.org/dist/v22.14.0/node-v22.14.0-linux-arm64.tar.xz"; \
+            URL="https://nodejs.org/dist/v22.15.0/node-v22.15.0-linux-arm64.tar.xz"; \
             ;; \
         *) \
             echo "Unsupported platform: ${TARGETPLATFORM}"; \
@@ -21,12 +21,12 @@ RUN set -eux; \
     esac; \
     curl "${URL}" --location | tar --extract --xz --directory=/usr/local --strip-components=1
 
-RUN npm install typescript@5.8.2 tsx@4.19.3 @salesforce/cli@2.80.12 -g \
+RUN npm install typescript@5.8.3 tsx@4.19.3 @salesforce/cli@2.85.7 -g \
     && npm cache clean --force
 
 RUN mkdir -p /root/.config/sf \
     && echo '["sfdx-git-delta"]' > /root/.config/sf/unsignedPluginAllowList.json \
-    && sf plugins install sfdx-git-delta@6.4.0 \
+    && sf plugins install sfdx-git-delta@6.6.0 \
     && npm cache clean --force
 
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]

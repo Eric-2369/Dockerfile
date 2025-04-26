@@ -1,4 +1,4 @@
-FROM debian:bookworm-20250317-slim
+FROM debian:bookworm-20250407-slim
 LABEL authors="eric2369"
 
 RUN apt-get update \
@@ -12,10 +12,10 @@ ARG TARGETPLATFORM
 RUN set -eux; \
     case "${TARGETPLATFORM}" in \
         "linux/amd64") \
-            URL="https://github.com/coder/code-server/releases/download/v4.98.2/code-server_4.98.2_amd64.deb"; \
+            URL="https://github.com/coder/code-server/releases/download/v4.99.3/code-server_4.99.3_amd64.deb"; \
             ;; \
         "linux/arm64") \
-            URL="https://github.com/coder/code-server/releases/download/v4.98.2/code-server_4.98.2_arm64.deb"; \
+            URL="https://github.com/coder/code-server/releases/download/v4.99.3/code-server_4.99.3_arm64.deb"; \
             ;; \
         *) \
             echo "Unsupported platform: ${TARGETPLATFORM}"; \
@@ -42,7 +42,7 @@ RUN set -eux; \
     rm /home/eric2369/miniconda.sh; \
     echo 'export PATH="/home/eric2369/miniconda/bin:$PATH"' >> /home/eric2369/.bashrc
 
-RUN curl "https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.2/install.sh" --location --output - | bash
+RUN curl "https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh" --location --output - | bash
 
 RUN curl "https://get.sdkman.io" --location --output - | bash
 
