@@ -1,4 +1,4 @@
-FROM debian:bookworm-20250407-slim
+FROM debian:bookworm-20250428-slim
 LABEL authors="eric2369"
 
 RUN apt-get update \
@@ -12,10 +12,10 @@ ARG TARGETPLATFORM
 RUN set -eux; \
     case "${TARGETPLATFORM}" in \
         "linux/amd64") \
-            URL="https://github.com/coder/code-server/releases/download/v4.99.3/code-server_4.99.3_amd64.deb"; \
+            URL="https://github.com/coder/code-server/releases/download/v4.100.2/code-server_4.100.2_amd64.deb"; \
             ;; \
         "linux/arm64") \
-            URL="https://github.com/coder/code-server/releases/download/v4.99.3/code-server_4.99.3_arm64.deb"; \
+            URL="https://github.com/coder/code-server/releases/download/v4.100.2/code-server_4.100.2_arm64.deb"; \
             ;; \
         *) \
             echo "Unsupported platform: ${TARGETPLATFORM}"; \
@@ -31,10 +31,10 @@ USER eric2369
 RUN set -eux; \
     case "${TARGETPLATFORM}" in \
         "linux/amd64") \
-            URL="https://repo.anaconda.com/miniconda/Miniconda3-py312_25.1.1-2-Linux-x86_64.sh"; \
+            URL="https://repo.anaconda.com/miniconda/Miniconda3-py313_25.3.1-1-Linux-x86_64.sh"; \
             ;; \
         "linux/arm64") \
-            URL="https://repo.anaconda.com/miniconda/Miniconda3-py312_25.1.1-2-Linux-aarch64.sh"; \
+            URL="https://repo.anaconda.com/miniconda/Miniconda3-py313_25.3.1-1-Linux-aarch64.sh"; \
             ;; \
     esac; \
     curl "${URL}" --location --output /home/eric2369/miniconda.sh; \
